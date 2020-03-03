@@ -4,7 +4,6 @@
 ERROR="mysqld is stopped"
 status=`service mysqld status`
 warn=`rpm -qa |grep mysql |sed -n 2p`
-LOG=/root/scripts/scriptslogs/scripts.log
 
 # --- Main
 # --- Check if mysql daemon is running
@@ -12,9 +11,9 @@ if [[ $status == $ERROR ]]; then
     echo "CRITICAL - mysqld daemon not running"
     # --- Check if mysql packages (rpm in this case, for RedHat/CentOS) are installed
     if [[ $(rpm -qa |grep mysql |sed -n 2p) ]]; then
-        echo "Mysql packages found" >> $LOG
+        echo "Mysql packages found" >> /root/scripts/scriptslogs/scripts.log
     else
-        echo "MySql packages not found" >> $LOG
+        echo "MySql packages not found" >> /root/scripts/scriptslogs/scripts.log
         echo "WARN - MySQL packages not found!"
         exit 1
     fi
